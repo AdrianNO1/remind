@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
         
         pythonfile = newfile[:-3] + "pyw"
         with open(pythonfile, "w") as f:
-            f.write(f'import os, sys\nos.system(r"{newfile}")\nsys.exit()')
+            f.write(f'import os, sys\nos.system(r"{os.path.abspath(newfile)}")\nsys.exit()')
 
         code = os.system(fr'schtasks /create /tn "{"reminderTask" + open(__file__.replace("PythonRemind.py", "remindercount.txt"), "r").read()}" /tr "{pythonfile}" /sc once /sd {self.date.toPlainText().replace("-", "/")} /st {self.time.toPlainText()}')
 
